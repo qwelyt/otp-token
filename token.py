@@ -23,7 +23,7 @@ def get_hotp_token(key, interval):
     msg = struct.pack(">Q", interval)
     h = hmac.new(realkey, msg, hashlib.sha1).digest()
     o = ord(h[19]) & 15
-    h = (struct.unpack(">I", h[o:o+4])[0] & 0x7ff ff fff) % 100 00 00
+    h = (struct.unpack(">I", h[o:o+4])[0] & 0x7fffffff) % 1000000
     return h
 
 def get_totp_token(key):
