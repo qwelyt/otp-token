@@ -1,5 +1,6 @@
 #!/bin/bash
 scriptname=$(basename $0)
+keyfile="$HOME/.otpkeys"
 if [ -z $1 ]
 then
     echo "$scriptname: Service Name Needed"
@@ -11,7 +12,7 @@ then
     echo "Format: name=key"
     exit
 fi
-otpkey=$(cat "$HOME/.otpkeys" | grep "$1" | cut -d"=" -f 2 | sed "s/ //g")
+otpkey=$(cat "$keyfile" | grep "$1" | cut -d"=" -f 2 | sed "s/ //g")
 if [ -z "$otpkey" ]
 then
     echo "$scriptname: Bad Service Name"
