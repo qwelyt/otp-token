@@ -67,3 +67,7 @@ There are several softwares to do this thing, like authy or winauth. However, I 
 Another nice feature: It works on Linux and Windows+Cygwin! And I'm pretty sure it works on OSX as well, but that's untested.
 
 For whatever reason you have, use it as you wish.
+
+## ToDo
+* Encrypt .otpkeys so they're not in plaintext. Use `source .otpkeys` to get the keys perhaps?
+* Look into putting it all in one language instead of bash+python.
