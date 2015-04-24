@@ -1,7 +1,6 @@
 # otp-token
 Generate OTP-tokens, like Google Authenticator
 
-Generate codes, like Google Authenticator.
 
 ## .otpkeys
 Put your key in .otpkeys
