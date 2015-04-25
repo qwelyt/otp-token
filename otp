@@ -1,17 +1,37 @@
 #!/bin/bash
 scriptname=$(basename $0)
-keyfile="$HOME/.otpkeys"
+
+keyfile="$2"
+if [[ -d "$keyfile" ]]; then keyfile="$HOME/.otpkeys"; fi
+
 scriptdir="${BASH_SOURCE%/*}"
 if [[ ! -d "$scriptdir" ]]; then scriptdir="$PWD"; fi
+
+if [[ -z $keyfile ]]
+then
+	echo "No keyfile found. "
+	echo "Currently looking for "
+	echo "      $keyfile"
+	echo " but it is not there"
+	echo ""
+	echo "Fixes: Either create the file or specify a keyfile"
+	echo "with" 
+	echo "     ./otp keyname keyfile"
+	exit
+fi
 
 if [ -z $1 ]
 then
     echo "$scriptname: Service Name Needed"
     echo ""
     echo "Usage:"
-    echo "   otp google"
+	echo "   otp keyname (keyfile)"
+	echo ""
+	echo "Examples:"
+	echo "   otp google"
+	echo "   otp google mykeyfile"
     echo ""
-    echo "Configuration: $HOME/.otpkeys"
+    echo "Configuration: $keyfile"
     echo "Format: name=key"
     exit
 fi
