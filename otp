@@ -2,12 +2,19 @@
 scriptname=$(basename $0)
 
 keyfile="$2"
-if [[ -d "$keyfile" ]]; then keyfile="$HOME/.otpkeys"; fi
+if [[ -z "$keyfile" ]]; then keyfile="$HOME/.otpkeys"; fi
+findfile=0
+if cat "$keyfile" > /dev/null 2>&1; then
+	findfile=0
+else
+	findfile=1
+fi
+
 
 scriptdir="${BASH_SOURCE%/*}"
 if [[ ! -d "$scriptdir" ]]; then scriptdir="$PWD"; fi
 
-if [[ -z $keyfile ]]
+if [[ ! $findfile -eq 0 ]]
 then
 	echo "No keyfile found. "
 	echo "Currently looking for "
