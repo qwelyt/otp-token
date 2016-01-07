@@ -22,9 +22,10 @@ def get_hotp_token(key, interval):
     realkey = base64.b32decode(key, True)
     msg = struct.pack(">Q", interval)
     h = hmac.new(realkey, msg, hashlib.sha1).digest()
-    o = ord(h[19]) & 15
-    h = (struct.unpack(">I", h[o:o+4])[0] & 0x7fffffff) % 1000000
-    return h
+    o = h[19] & 15
+    token = str((struct.unpack(">I", h[o:o+4])[0] & 0x7fffffff) % 1000000)
+    formated_token = " ".join(token[i:i+3] for i in range(0, len(token), 3))
+    return formated_token
 
 def get_totp_token(key):
     return get_hotp_token(key, interval=int(time.time())//30)
