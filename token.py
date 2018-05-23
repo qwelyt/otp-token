@@ -24,8 +24,9 @@ def get_hotp_token(key, interval):
     h = hmac.new(realkey, msg, hashlib.sha1).digest()
     o = h[19] & 15
     token = str((struct.unpack(">I", h[o:o+4])[0] & 0x7fffffff) % 1000000)
-    formated_token = " ".join(token[i:i+3] for i in range(0, len(token), 3))
-    return formated_token.rjust(7, '0')
+    addedZeros= token.rjust(6, '0')
+    formated_token = " ".join(addedZeros[i:i+3] for i in range(0, len(addedZeros), 3))
+    return formated_token
 
 def get_totp_token(key):
     return get_hotp_token(key, interval=int(time.time())//30)
